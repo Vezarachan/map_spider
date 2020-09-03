@@ -24,6 +24,34 @@ if __name__ == '__main__':
     amap_poi_spider.to_geojson(filename='bmap_poi')
     print('Done!')
 ```
+## Output structure
+> .csv file
+
+| name | type | lng | lat |
+| ---- | ---- | ---- | ---- |
+| 麦当劳(交通口餐厅) | cater | 116.415862 | 39.947472 |
+| ... | ... | ... | ... |
+
+> .geojson file
+
+```json
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [116.423801, 39.971425]},
+      "properties": {"name": "护国寺小吃(和平西街店)", "type": "cater"}
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [116.445986, 39.966328]},
+      "properties": {"name": "南城香(国展店)", "type": "cater"}
+    },
+    ...
+  ]
+}
+```
 
 ## TODO
 - [x] POI Spider (Amap & Bmap)

@@ -10,11 +10,12 @@ if __name__ == '__main__':
     bmap_poi_spider.get_all_pois()
     bmap_poi_spider.to_csv()
     bmap_poi_spider.to_geojson(filename='bmap_poi')
-    # amap_bounds = RegionDivision(extent, precision=0.05, api_tyoe='Amap').generate_bounds()
-    # for bound in amap_bounds:
-    #     print(bound)
-    # amap_poi_spider = AmapPoiSpider(amap_bounds, '9c538d0d20ffed4cc35f78bc6c41d9fd', keywords=['快餐', '医院'])
-    # amap_poi_spider.get_all_pois()
-    # amap_poi_spider.to_csv()
-    # amap_poi_spider.to_geojson()
+    # ---------------------------------------------------------------------------------------------------------------- #
+    amap_bounds = RegionDivision(extent, precision=0.05, api_tyoe='Amap').generate_bounds()
+    for bound in amap_bounds:
+        print(bound)
+    amap_poi_spider = AmapPoiSpider(amap_bounds, '9c538d0d20ffed4cc35f78bc6c41d9fd', keywords=['快餐', '医院'])
+    amap_poi_spider.get_all_pois()
+    amap_poi_spider.to_csv()
+    amap_poi_spider.to_geojson()
     print('Done!')
