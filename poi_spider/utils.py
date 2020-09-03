@@ -2,9 +2,13 @@ from abc import ABC, abstractmethod
 from typing import List
 import logging
 
-
 AMAP_API = 'https://restapi.amap.com/v3/place/polygon'
 BMAP_APi = 'http://api.map.baidu.com/place/v2/search'
+
+
+class NoRecordsError(Exception):
+    def __init__(self, err='Got 0 record'):
+        Exception.__init__(self, err)
 
 
 class RegionDivision(object):
@@ -53,7 +57,4 @@ class RegionDivision(object):
                     bounds.append('{0},{1},{2},{3}'.format(lat_min, lng_min, lat_max, lng_max))
                 elif 'Amap' == self.api_type:
                     bounds.append('{0:.5f},{1:.5f}|{2:.5f},{3:.5f}'.format(lng_min, lat_max, lng_max, lat_min))
-
-
         return bounds
-
