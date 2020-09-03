@@ -47,8 +47,7 @@ if __name__ == '__main__':
       "type": "Feature",
       "geometry": {"type": "Point", "coordinates": [116.445986, 39.966328]},
       "properties": {"name": "南城香(国展店)", "type": "cater"}
-    },
-    /* ...  */
+    }
   ]
 }
 ```
