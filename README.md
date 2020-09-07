@@ -55,3 +55,14 @@ if __name__ == '__main__':
 ## TODO
 - [x] POI Spider (Amap & Bmap)
 - [ ] StreetView Spider 
+
+## Current Projects
+- **[quadtree-py](https://github.com/Vezarachan/quadtree-py)** - A quadtree implementation in pure Python
+- **[cocopulas](https://github.com/Vezarachan/cocopulas)** - A Python lib for copulas (elliptical, archimedean copulas)
+- **map_spider** - A spider searching for POI and streetview from Amap and Bmap
+
+## Next Projects
+- **KD-Tree** - The k-dimensional tree implementation in Python
+- **V2ML** - Way to Machine Learning (Courses from Hung-yi Lee in NTU)
+- **GeoBayesian** - Combination of Spatial Analysis and Bayesian Data Analysis
+- **MicroGIS** - A lightweight, full-function, modern GIS based on C++

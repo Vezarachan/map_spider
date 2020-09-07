@@ -1,6 +1,6 @@
 from requests.models import Response
 from poi_spider import *
-from .utils import AMAP_API, BMAP_APi, NoRecordsError
+from .utils import AMAP_API, BMAP_APi
 
 
 class BmapPoiSpider(object):
@@ -16,7 +16,7 @@ class BmapPoiSpider(object):
         self.api_key = api_key
 
     # get records of nth page in given bound
-    def __get_all_records(self, bound: str, page_max: int) -> List[dict]:
+    def __get_all_records(self, bound: str, page_max: int) -> List[Dict]:
         records: List[Dict] = list()
 
         for page_num in range(1, page_max + 1):
