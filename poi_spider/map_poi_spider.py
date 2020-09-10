@@ -1,9 +1,20 @@
+"""
+@author: Leon Elaiza
+@license: MIT license
+@contact: xiayin_lou@stu.pku.edu.cn
+@file: map_poi_spider.py
+@time: 2020/9/10 3:50 下午
+@desc: An spider for acquiring poi from Amap & Bmap
+"""
 from requests.models import Response
 from poi_spider import *
-from .utils import AMAP_API, BMAP_APi
+from .utils import AMAP_POI_API, BMAP_POI_API
 
 
 class BmapPoiSpider(object):
+    """
+    Baidu Map POI (point of interest) API spider
+    """
     keyword: str
     bounds: List[str]
     api_key: str
@@ -33,7 +44,7 @@ class BmapPoiSpider(object):
 
             try:
                 logging.info('Getting data -- keyword:{0}'.format(self.keyword))
-                response: Response = requests.get(BMAP_APi, params=params)
+                response: Response = requests.get(BMAP_POI_API, params=params)
                 poi_json = json.loads(response.text)
             except requests.exceptions.ConnectionError as e:
                 logging.error('Connection Error -- ', e)
@@ -90,6 +101,9 @@ class BmapPoiSpider(object):
 
 
 class AmapPoiSpider(object):
+    """
+    Gaode Map POI (point of interest) API spider
+    """
     keywords: str
     bounds: List[str]
     api_key: str
@@ -116,7 +130,7 @@ class AmapPoiSpider(object):
 
             try:
                 logging.info('Getting data  -- keyword:{0}'.format(self.keywords))
-                response: Response = requests.get(AMAP_API, params=params)
+                response: Response = requests.get(AMAP_POI_API, params=params)
                 poi_json = json.loads(response.text)
             except requests.exceptions.ConnectionError as e:
                 logging.error('Connection Error -- ', e)

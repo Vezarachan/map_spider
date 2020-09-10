@@ -1,14 +1,10 @@
+
 from abc import ABC, abstractmethod
 from typing import List
 import logging
 
-AMAP_API = 'https://restapi.amap.com/v3/place/polygon'
-BMAP_APi = 'http://api.map.baidu.com/place/v2/search'
-
-
-class NoRecordsError(Exception):
-    def __init__(self, err='Got 0 record'):
-        Exception.__init__(self, err)
+AMAP_POI_API = 'https://restapi.amap.com/v3/place/polygon'
+BMAP_POI_API = 'http://api.map.baidu.com/place/v2/search'
 
 
 class RegionDivision(object):
