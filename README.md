@@ -1,5 +1,6 @@
 # Map Spider
-
+![](https://img.shields.io/badge/license-MIT-success?style=for-the-badge&logo=appveyor) ![](https://img.shields.io/badge/mapspider-1.0.0-blue?style=for-the-badge&logo=appveyor) 
+![](https://img.shields.io/badge/test-passing-red?style=for-the-badge&logo=appveyor)
 > Map Spider is a tool to search and acquire pois and streetview data from the apis of Amap and Bmap.
 
 ## POI Spider
