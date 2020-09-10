@@ -13,9 +13,22 @@ from requests import Response
 from urllib.request import urlretrieve
 from urllib.parse import urlencode
 import logging
+import json
 
 BMAP_STREETVIEW_API = 'http://api.map.baidu.com/panorama/v2'
-GOOGLEMAP_STREETVIEW_API = 'https://maps.googleapis.com/maps/api/streetview'
+
+
+def __check_json(content: str):
+    """
+    Check the response
+    :param content:
+    :return bool:
+    """
+    try:
+        json.loads(content)
+        return True
+    except Exception:
+        return False
 
 
 class BmapStreetViewSpider(object):
@@ -25,7 +38,7 @@ class BmapStreetViewSpider(object):
     api_key: str
     width: float
     height: float
-    locations: List[str] = []
+    locations: List[str]
     coord_type: str
     heading: int
     pitch: int
@@ -41,8 +54,7 @@ class BmapStreetViewSpider(object):
                  pitch: int = 0,
                  fov: int = 90):
         self.api_key = api_key
-        for location in locations:
-            self.locations.append(location)
+        self.locations = locations
         self.width = width
         self.height = height
         self.coord_type = coord_type
@@ -66,16 +78,23 @@ class BmapStreetViewSpider(object):
                 'pitch': self.pitch,
                 'fov': self.fov
             }
-            response: Response = requests.get(BMAP_STREETVIEW_API, params=params)
-            # try:
-            #     json.loads(response.text)
-            #     return None
-            # except json.JSONDecodeError as e:
-            #     logging.error('JSON Deconde Error - ', e)
+
+            try:
+                response: Response = requests.get(BMAP_STREETVIEW_API, params=params)
+                if __check_json(response.text):
+                    logging.error('JSON parse failed.')
+                    break
+            except Exception as e:
+                logging.error('Parse Error - ', e)
             self.urls.append('{0}?{1}'.format(BMAP_STREETVIEW_API, urlencode(params)))
         return self
 
     def download(self, path: str = None):
+        """
+        Download images
+        :param path:
+        :return:
+        """
         for i in range(len(self.locations)):
             lng, lat = self.locations[i].split(',')
             img_name = 'sv_{0}_{1}.png'.format(lng, lat)
@@ -94,5 +113,3 @@ class BmapStreetViewSpider(object):
                 logging.error('file operation failed! ', e)
             except Exception as e:
                 logging.error('exception!! ', e)
-
-

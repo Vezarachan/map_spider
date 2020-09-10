@@ -2,7 +2,8 @@
 
 > Map Spider is a tool to search and acquire pois and streetview data from the apis of Amap and Bmap.
 
-## Usage
+## POI Spider
+### Usage
 ```python
 from poi_spider.map_poi_spider import BmapPoiSpider, AmapPoiSpider
 from poi_spider.utils import RegionDivision
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     amap_poi_spider.to_geojson(filename='bmap_poi')
     print('Done!')
 ```
-## Output structure
+### Output structure
 > .csv file
 
 | name | type | lng | lat |
@@ -51,10 +52,31 @@ if __name__ == '__main__':
   ]
 }
 ```
+---
+## StreetView Spider
+### Usage
+```python
+from streetview_spider.map_streetview_spider import BmapStreetViewSpider
+from typing import List
+
+locations: List[str] = []
+
+with open('path/to/places.csv', 'r') as f:
+    for line in f.readlines():
+        locations.append(line)
+
+bmap_streetview_spider = BmapStreetViewSpider(api_key='hM9GzOGeQVHvXi6lM0iLjfd2uEidhfYm', locations=locations)
+bmap_streetview_spider.search_streeview_images().download(path='path/to/street_view_imgs')
+```
+### Output
+![](https://github.com/Vezarachan/map_spider/blob/master/examples/streetview_imgs/sv_116.35_40.04778.png)
+![](https://github.com/Vezarachan/map_spider/blob/master/examples/streetview_imgs/sv_116.3_%2040.04778.png)
+
 
 ## TODO
 - [x] POI Spider (Amap & Bmap)
-- [ ] StreetView Spider 
+- [x] StreetView Spider 
+- [ ] GUI (based on Web or PyQT)
 
 ## Current Projects
 - **[quadtree-py](https://github.com/Vezarachan/quadtree-py)** - A quadtree implementation in pure Python
