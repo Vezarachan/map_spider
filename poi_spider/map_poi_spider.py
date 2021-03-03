@@ -45,6 +45,7 @@ class BmapPoiSpider(object):
             try:
                 logging.info('Getting data -- keyword:{0}'.format(self.keyword))
                 response: Response = requests.get(BMAP_POI_API, params=params)
+                print(response.url)
                 poi_json = json.loads(response.text)
             except requests.exceptions.ConnectionError as e:
                 logging.error('Connection Error -- ', e)
@@ -56,12 +57,13 @@ class BmapPoiSpider(object):
                 break
             else:
                 logging.info('Converting data ......')
+                print('Converting data ......')
                 pois = poi_json['results']
                 for poi in pois:
                     self.record_count += 1
                     records.append(
                         {'name': poi['name'],
-                         'type': poi['detail_info']['type'],
+                         # 'type': poi['detail_info']['type'],
                          'lng': poi['location']['lng'],
                          'lat': poi['location']['lat']}
                     )
@@ -82,8 +84,10 @@ class BmapPoiSpider(object):
         with open(path, 'a') as f:
             f.writelines(','.join(self.pois[0].keys()) + '\n')
             for poi in self.pois:
+                # f.writelines(
+                #     '{0},{1},{2},{3}\n'.format(poi['name'], poi['type'], poi['lng'], poi['lat']))
                 f.writelines(
-                    '{0},{1},{2},{3}\n'.format(poi['name'], poi['type'], poi['lng'], poi['lat']))
+                    '{0}, {1}, {2}\n'.format(poi['name'], poi['lng'], poi['lat']))
 
     def to_geojson(self, filename: str = None):
         logging.info('Writing file as geojson')
@@ -93,7 +97,9 @@ class BmapPoiSpider(object):
         else:
             path = '{0}/{1}.geojson'.format(os.path.abspath(os.curdir), filename)
         for poi in self.pois:
-            feature = Feature(geometry=Point((poi['lng'], poi['lat'])), properties={'name': poi['name'], 'type': poi['type']})
+            # feature = Feature(geometry=Point((poi['lng'], poi['lat'])), properties={'name': poi['name'], 'type': poi['type']})
+            feature = Feature(geometry=Point((poi['lng'], poi['lat'])),
+                              properties={'name': poi['name']})
             features.append(feature)
         feature_collection = FeatureCollection(features)
         with open(path, 'a') as f:
