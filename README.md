@@ -72,7 +72,17 @@ bmap_streetview_spider.search_streeview_images().download(path='path/to/street_v
 ### Output
 ![](https://github.com/Vezarachan/map_spider/blob/master/examples/streetview_imgs/sv_116.35_40.04778.png)
 ![](https://github.com/Vezarachan/map_spider/blob/master/examples/streetview_imgs/sv_116.3_%2040.04778.png)
+---
+## Subway Station Spider
+### Usage
+```python
+from subway_spider.subway_spider import SubwaySpider
 
+# select a city
+subway_spider = SubwaySpider(city_name='beijing')
+# output information about subway lines of the given city
+subway_spider.get_all_station_name().to_csv().to_geojson()
+```
 
 ## TODO
 - [x] POI Spider (Amap & Bmap)
